@@ -29,4 +29,6 @@ def index():
     return render_template('index.html', users=users)
 
 if __name__ == '__main__':
+    # Debug mode is enabled for development/learning purposes
+    # WARNING: Disable debug mode (debug=False) in production environments
     app.run(debug=True)
