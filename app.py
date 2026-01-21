@@ -21,6 +21,7 @@ def index():
             (name, email)
         )
         conn.commit()
+        conn.close()
         return redirect('/')
     
     users = conn.execute('SELECT * FROM users').fetchall()
