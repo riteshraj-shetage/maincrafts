@@ -108,8 +108,3 @@ This project demonstrates:
 - Deploy to cloud platform (Heroku, AWS, etc.)
 - Add REST API endpoints
 - Implement pagination for large datasets
-
-## Contact
-
-For more information, visit: www.maincrafts.com
-Email: hr@maincrafts.com
