@@ -20,14 +20,15 @@ This application demonstrates the fundamentals of full-stack web development by 
 
 ```
 maincrafts/
-├── app.py              # Flask backend application
-├── setup_db.py         # Database initialization script
-├── requirements.txt    # Python dependencies
-├── database.db         # SQLite database (created after setup)
-├── templates/
-│   └── index.html      # HTML template with form and table
-└── static/
-    └── style.css       # CSS styling
+    python-fullstack-task1/
+        ├── app.py              # Flask backend application
+        ├── setup_db.py         # Database initialization script
+        ├── requirements.txt    # Python dependencies
+        ├── database.db         # SQLite database (created after setup)
+        ├── templates/
+        │   └── index.html      # HTML template with form and table
+        └── static/
+            └── style.css       # CSS styling
 ```
 
 ## Setup Instructions
