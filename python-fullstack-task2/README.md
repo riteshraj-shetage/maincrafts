@@ -32,8 +32,8 @@ maincrafts/
         ├── database.db         # SQLite database (created after setup)
         ├── templates/
         │   ├── register.html   # Registration page
-        │   ├── login.html      # Login page (needs to be created)
-        │   └── dashboard.html  # Protected dashboard (needs to be created)
+        │   ├── login.html      # Login page
+        │   └── dashboard.html  # Protected dashboard
         └── static/
             └── style.css       # CSS styling
 ```
@@ -82,7 +82,7 @@ The application will be available at: `http://127.0.0.1:5000/`
 1. **Register**: Navigate to `http://127.0.0.1:5000/register`
    - Enter a unique username
    - Enter a password (will be hashed before storage)
-   - Click "Register"
+   - Click "Create Account"
 
 2. **Login**: After registration, you'll be redirected to `/login`
    - Enter your username and password
@@ -90,7 +90,7 @@ The application will be available at: `http://127.0.0.1:5000/`
 
 3. **Dashboard**: After successful login, access the protected dashboard
    - Only accessible when logged in
-   - Displays personalized content
+   - Displays personalized welcome message
 
 4. **Logout**: Click logout to end your session and return to login page
 
@@ -116,20 +116,20 @@ The application will be available at: `http://127.0.0.1:5000/`
 
 1. **Registration**:
    - User submits username and password
-   - Password is hashed
+   - Password is hashed using Werkzeug
    - Data stored in SQLite database
    - Redirect to login page
 
 2. **Login**:
    - User submits credentials
    - Backend verifies username exists
-   - Password hash is validated
+   - Password hash is validated using `check_password_hash()`
    - Session created with username
    - Redirect to dashboard
 
 3. **Dashboard**:
    - Checks if user is in session
-   - If yes: displays dashboard
+   - If yes: displays personalized dashboard
    - If no: redirects to login
 
 4. **Logout**:
@@ -150,38 +150,29 @@ CREATE TABLE users (
 
 This project demonstrates:
 
-- Flask routing and request handling
+- Flask routing and request handling (GET/POST methods)
 - Password hashing and security best practices
 - Session management for user authentication
-- SQLite database operations
+- SQLite database operations with constraints
 - Protected routes and access control
-- Form validation and user feedback
+- Form validation and user input handling
 - Template rendering with Jinja2
 - Full-stack authentication workflow
-
-## Known Issues & Improvements Needed
-
-⚠️ **Current Bugs to Fix:**
-
-1. Indentation error in `login()` function (lines 43-46)
-2. Missing `login.html` template
-3. Missing `dashboard.html` template
-4. Form field mismatch in `register.html` (name/email vs username/password)
-5. No root route (`/`) defined
-6. No error handling for duplicate usernames
-7. Database connections not properly closed
-8. Hardcoded secret key (should use environment variables)
+- Security considerations in web development
 
 ## Future Enhancements
 
-- ✨ Add password strength requirements
-- ✨ Implement "Forgot Password" functionality
-- ✨ Add email verification
-- ✨ Implement role-based access control (admin/user)
-- ✨ Add profile update functionality
-- ✨ Implement password reset
-- ✨ Add remember me checkbox
-- ✨ Implement account deletion
-- ✨ Add user activity logs
-- ✨ Deploy to cloud platform (Heroku, AWS, etc.)
-- ✨ Add CAPTCHA for bot prevention
+- Add password strength requirements
+- Implement "Forgot Password" functionality
+- Add email verification
+- Implement role-based access control (admin/user)
+- Add profile update functionality
+- Implement password reset via email
+- Add "remember me" checkbox
+- Implement account deletion
+- Add user activity logs
+- Deploy to cloud platform (Heroku, AWS, etc.)
+- Add CAPTCHA for bot prevention
+- Implement two-factor authentication (2FA)
+- Add REST API endpoints
+- Implement pagination for user lists
