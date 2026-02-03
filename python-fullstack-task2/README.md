@@ -1,32 +1,39 @@
-# User Management Web Application
+# User Authentication System
 
-A simple full-stack web application built with Python Flask, HTML, CSS, and SQLite for managing user details.
+A full-stack web application built with Python Flask featuring user registration, login, session management, and password hashing with SQLite database.
 
 ## Project Overview
 
-This application demonstrates the fundamentals of full-stack web development by creating a user management system where you can:
-- Add new user details (name and email)
-- View all users in a styled table
-- Store data permanently in a SQLite database
+This application demonstrates secure user authentication by implementing:
+
+- User registration with password hashing
+- Secure login with session management
+- Protected dashboard accessible only to logged-in users
+- Logout functionality
+- SQLite database for persistent user storage
 
 ## Technologies Used
 
 - **Backend**: Python + Flask
 - **Frontend**: HTML, CSS
 - **Database**: SQLite
+- **Security**: Werkzeug (password hashing)
+- **Session Management**: Flask Sessions
 - **Tools**: VS Code, Browser
 
 ## Project Structure
 
 ```
 maincrafts/
-    python-fullstack-task1/
-        ├── app.py              # Flask backend application
+    python-fullstack-task2/
+        ├── app.py              # Flask backend with authentication routes
         ├── setup_db.py         # Database initialization script
         ├── requirements.txt    # Python dependencies
         ├── database.db         # SQLite database (created after setup)
         ├── templates/
-        │   └── index.html      # HTML template with form and table
+        │   ├── register.html   # Registration page
+        │   ├── login.html      # Login page (needs to be created)
+        │   └── dashboard.html  # Protected dashboard (needs to be created)
         └── static/
             └── style.css       # CSS styling
 ```
@@ -35,17 +42,16 @@ maincrafts/
 
 ### 1. Install Dependencies
 
-First, ensure you have Python 3.10+ installed. Then install Flask:
+First, ensure you have Python 3.10+ installed. Then install required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Or manually:
+This will install:
 
-```bash
-pip install flask
-```
+- Flask==3.1.2
+- Werkzeug==3.1.5
 
 ### 2. Initialize Database
 
@@ -55,7 +61,11 @@ Run the database setup script (only once):
 python setup_db.py
 ```
 
-This creates `database.db` with a `users` table.
+This creates `database.db` with a `users` table containing:
+
+- `id` (Primary Key)
+- `username` (Unique)
+- `password` (Hashed)
 
 ### 3. Run the Application
 
@@ -69,42 +79,109 @@ The application will be available at: `http://127.0.0.1:5000/`
 
 ## How to Use
 
-1. Open your browser and navigate to `http://127.0.0.1:5000/`
-2. Fill in the form with a name and email
-3. Click "Add User" to submit
-4. View all added users in the table below the form
+1. **Register**: Navigate to `http://127.0.0.1:5000/register`
+   - Enter a unique username
+   - Enter a password (will be hashed before storage)
+   - Click "Register"
+
+2. **Login**: After registration, you'll be redirected to `/login`
+   - Enter your username and password
+   - Click "Login"
+
+3. **Dashboard**: After successful login, access the protected dashboard
+   - Only accessible when logged in
+   - Displays personalized content
+
+4. **Logout**: Click logout to end your session and return to login page
 
 ## Features
 
-- ✅ User input form with validation
-- ✅ POST request handling to store data
-- ✅ SQLite database for persistent storage
-- ✅ Display all users in a styled table
-- ✅ Clean, modern UI with CSS styling
-- ✅ Automatic page redirect after submission
+- ✅ User registration with form validation
+- ✅ Secure password hashing using Werkzeug
+- ✅ Session-based authentication
+- ✅ Protected routes (dashboard requires login)
+- ✅ SQLite database with UNIQUE constraint on username
+- ✅ Login/Logout functionality
+- ✅ Clean UI with CSS styling
+- ✅ Automatic redirects after actions
+
+## Security Features
+
+- **Password Hashing**: Passwords are hashed using `generate_password_hash()` before storage
+- **Session Management**: Flask sessions store logged-in user information
+- **Protected Routes**: Dashboard checks for active session before access
+- **Database Constraints**: UNIQUE constraint prevents duplicate usernames
 
 ## Project Flow
 
-1. **Frontend (HTML)**: User enters name and email in the form
-2. **Backend (Flask)**: Receives POST request with form data
-3. **Database (SQLite)**: Stores user data in the `users` table
-4. **Display**: Fetches all users from database and displays them
+1. **Registration**:
+   - User submits username and password
+   - Password is hashed
+   - Data stored in SQLite database
+   - Redirect to login page
+
+2. **Login**:
+   - User submits credentials
+   - Backend verifies username exists
+   - Password hash is validated
+   - Session created with username
+   - Redirect to dashboard
+
+3. **Dashboard**:
+   - Checks if user is in session
+   - If yes: displays dashboard
+   - If no: redirects to login
+
+4. **Logout**:
+   - Removes user from session
+   - Redirects to login page
+
+## Database Schema
+
+```sql
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY,
+    username TEXT UNIQUE,
+    password TEXT
+)
+```
 
 ## Learning Outcomes
 
 This project demonstrates:
-- Python full-stack architecture
-- How frontend, backend, and database connect
+
 - Flask routing and request handling
+- Password hashing and security best practices
+- Session management for user authentication
 - SQLite database operations
+- Protected routes and access control
+- Form validation and user feedback
 - Template rendering with Jinja2
-- Form submission and data validation
+- Full-stack authentication workflow
+
+## Known Issues & Improvements Needed
+
+⚠️ **Current Bugs to Fix:**
+
+1. Indentation error in `login()` function (lines 43-46)
+2. Missing `login.html` template
+3. Missing `dashboard.html` template
+4. Form field mismatch in `register.html` (name/email vs username/password)
+5. No root route (`/`) defined
+6. No error handling for duplicate usernames
+7. Database connections not properly closed
+8. Hardcoded secret key (should use environment variables)
 
 ## Future Enhancements
 
-- Add update/delete user functionality
-- Implement user authentication
-- Add search and filter features
-- Deploy to cloud platform (Heroku, AWS, etc.)
-- Add REST API endpoints
-- Implement pagination for large datasets
+- ✨ Add password strength requirements
+- ✨ Implement "Forgot Password" functionality
+- ✨ Add email verification
+- ✨ Implement role-based access control (admin/user)
+- ✨ Add profile update functionality
+- ✨ Implement password reset
+- ✨ Add remember me checkbox
+- ✨ Implement account deletion
+- ✨ Add user activity logs
+- ✨ Deploy to cloud platform (Heroku, AWS, etc.)
+- ✨ Add CAPTCHA for bot prevention
