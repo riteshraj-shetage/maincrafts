@@ -25,6 +25,7 @@ def register():
             (username, password)
         )
         db.commit()
+        db.close()
         return redirect('/login')
     return render_template('register.html')
 
@@ -43,7 +44,7 @@ def login():
         if user and check_password_hash(user['password'], password):
             session['user'] = user['username']
             return redirect('/dashboard')
-
+        db.close()
     return render_template('login.html')
 
 
