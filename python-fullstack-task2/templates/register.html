@@ -8,26 +8,12 @@
 
 <h2>User Management System</h2>
 
-<form method="POST">
-    <input type="text" name="name" placeholder="Enter Name" required>
-    <input type="email" name="email" placeholder="Enter Email" required>
-    <button type="submit">Add User</button>
+<form method="post">
+    <h2>Register</h2>
+    <input name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button>Create Account</button>
 </form>
-
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-    </tr>
-    {% for user in users %}
-    <tr>
-        <td>{{ user.id }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-    </tr>
-    {% endfor %}
-</table>
 
 </body>
 </html>
