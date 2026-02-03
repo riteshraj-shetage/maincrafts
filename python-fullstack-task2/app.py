@@ -38,11 +38,11 @@ def login():
         db = get_db()
         user = db.execute(
             "SELECT * FROM users WHERE username = ?", (username, )
-        ) .fetchone()
+        ).fetchone()
 
-    if user and check_password_hash(user['password'], password):
-        session['user'] = user['username']
-        return redirect('/dashboard')
+        if user and check_password_hash(user['password'], password):
+            session['user'] = user['username']
+            return redirect('/dashboard')
 
     return render_template('login.html')
 
