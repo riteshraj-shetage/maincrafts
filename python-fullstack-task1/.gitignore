@@ -12,8 +12,8 @@ build/
 dist/
 
 # Database
-*.db
-database.db
+# *.db
+# database.db
 
 # IDE
 .vscode/
