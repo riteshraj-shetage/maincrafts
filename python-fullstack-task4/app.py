@@ -26,9 +26,10 @@ def init_db():
         )
         """
     )
-    db.execute(
-        "ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user';"
-    )
+    try:
+        db.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user'")
+    except sqlite3.OperationalError:
+        pass
     db.execute(
         """
         CREATE TABLE IF NOT EXISTS students(
