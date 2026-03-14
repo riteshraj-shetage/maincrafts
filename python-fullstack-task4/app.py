@@ -1,3 +1,6 @@
+from functools import wraps
+from flask import session, redirect
+
 from flask import Flask, render_template, request, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
@@ -38,6 +41,15 @@ def init_db():
     )
     db.commit()
     db.close()
+
+
+def admin_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if 'user' not in session or session.get('role') != 'admin':
+            return redirect('/dashboard')
+        return f(*args, **kwargs)
+    return wrapper
 
 
 @app.route('/register', methods=['GET', 'POST'])
