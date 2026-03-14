@@ -92,7 +92,7 @@ def login():
 def dashboard():
     if 'user' not in session:
         return redirect('/login')
-    return render_template('dashboard.html', user=session['user'])
+    return render_template('dashboard.html', user=session['user'], role=session.get('role'))
 
 
 @app.route('/logout')
@@ -130,7 +130,7 @@ def students():
     db = get_db()
     data = db.execute("SELECT * FROM students").fetchall()
     db.close()
-    return render_template('students.html', students=data)
+    return render_template('students.html', students=data, role=session.get('role'))
 
 
 @app.route('/add-student', methods=['GET', 'POST'])
