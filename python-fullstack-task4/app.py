@@ -106,7 +106,7 @@ def logout():
 @admin_required
 def admin_dashboard():
     db = get_db()
-    users = db.execute("SELECT id, username, role FROM users") . fetchall()
+    users = db.execute("SELECT id, username, role FROM users").fetchall()
     return render_template('admin.html', users=users)
 
 
@@ -178,16 +178,6 @@ def edit_student(id):
 
     db.close()
     return render_template('edit_student.html', student=student)
-
-
-@app.route('/delete/<int:id>')
-@admin_required
-def delete_student(id):
-    db = get_db()
-    db.execute("DELETE FROM students WHERE id = ?", (id,))
-    db.commit()
-    db.close()
-    return redirect('/students')
 
 
 @app.route('/api/students', methods=['GET'])
