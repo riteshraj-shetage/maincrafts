@@ -12,6 +12,9 @@ cur.execute(
     )
     """
 )
+cur.execute(
+    "ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user';"
+)
 
 cur.execute(
     """
