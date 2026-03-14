@@ -112,7 +112,17 @@ def admin_dashboard():
     return render_template('admin.html', users=users)
 
 
+@app.route('/admin/delete/<int:id>')
+@admin_required
+def admin_delete_student(id):
+    db = get_db()
+    db.execute("DELETE FROM students WHERE id = ?", (id,))
+    db.commit()
+    db.close()
+    return redirect('/students')
+
 # adding student management routes
+
 
 @app.route('/students')
 def students():
