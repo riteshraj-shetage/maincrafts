@@ -102,6 +102,14 @@ def logout():
     return redirect('/login')
 
 
+@app.route('/admin')
+@admin_required
+def admin_dashboard():
+    db = get_db()
+    users = db.execute("SELECT id, username, role FROM users") . fetchall()
+    return render_template('admin.html', users=users)
+
+
 # adding student management routes
 
 @app.route('/students')
