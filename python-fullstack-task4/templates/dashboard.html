@@ -2,4 +2,9 @@
 <p>This is a protected dashboard.</p>
 
 <p><a href="/students">Manage Students</a></p>
+
+{% if role == 'admin' %}
+<p><a href="/admin">Admin Panel</a></p>
+{% endif %}
+
 <a href="/logout">Logout</a>
