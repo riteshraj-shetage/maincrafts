@@ -32,32 +32,78 @@ UPDATE users SET role='admin' WHERE username='YOUR_USERNAME';
 
 3. Logout and login again
 
-## API examples (for screenshots)
+## API examples (Postman)
 
-### Get all students
+Base URL: `http://127.0.0.1:5000`
 
-```bash
-curl http://127.0.0.1:5000/api/students
+### 1) GET all students
+
+- Method: `GET`
+- URL: `http://127.0.0.1:5000/api/students`
+- Headers: none
+- Body: none
+
+Expected response: JSON array
+
+---
+
+### 2) POST add a student
+
+- Method: `POST`
+- URL: `http://127.0.0.1:5000/api/students`
+- Headers:
+  - `Content-Type: application/json`
+- Body (raw → JSON):
+
+```json
+{
+  "name": "John",
+  "email": "john@example.com",
+  "course": "Flask"
+}
 ```
 
-### Add student
+Expected response:
 
-```bash
-curl -X POST http://127.0.0.1:5000/api/students \
-  -H "Content-Type: application/json" \
-  -d '{"name":"John","email":"john@example.com","course":"Flask"}'
+```json
+{ "message": "Student added successfully" }
 ```
 
-### Update student (id=1)
+---
 
-```bash
-curl -X PUT http://127.0.0.1:5000/api/students/1 \
-  -H "Content-Type: application/json" \
-  -d '{"name":"John Updated","email":"john.updated@example.com","course":"API"}'
+### 3) PUT update a student
+
+- Method: `PUT`
+- URL: `http://127.0.0.1:5000/api/students/1`
+- Headers:
+  - `Content-Type: application/json`
+- Body (raw → JSON):
+
+```json
+{
+  "name": "John Updated",
+  "email": "john.updated@example.com",
+  "course": "API"
+}
 ```
 
-### Delete student (id=1)
+Expected response:
 
-```bash
-curl -X DELETE http://127.0.0.1:5000/api/students/1
+```json
+{ "message": "Student updated" }
+```
+
+---
+
+### 4) DELETE a student
+
+- Method: `DELETE`
+- URL: `http://127.0.0.1:5000/api/students/1`
+- Headers: none
+- Body: none
+
+Expected response:
+
+```json
+{ "message": "Student deleted" }
 ```
