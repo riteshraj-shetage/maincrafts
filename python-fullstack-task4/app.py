@@ -24,6 +24,9 @@ def init_db():
         """
     )
     db.execute(
+        "ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user';"
+    )
+    db.execute(
         """
         CREATE TABLE IF NOT EXISTS students(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
