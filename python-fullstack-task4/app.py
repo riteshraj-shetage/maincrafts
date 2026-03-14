@@ -83,9 +83,9 @@ def login():
 
         if user and check_password_hash(user['password'], password):
             session['user'] = user['username']
+            session['role'] = user['role']
             db.close()
             return redirect('/dashboard')
-        db.close()
 
     return render_template('login.html')
 
