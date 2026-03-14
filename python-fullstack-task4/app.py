@@ -192,6 +192,67 @@ def delete_student(id):
     return redirect('/students')
 
 
+@app.route('/api/students', methods=['GET'])
+def api_get_students():
+    db = get_db()
+    students = db.execute("SELECT * FROM students").fetchall()
+    db.close()
+    return jsonify([dict(row) for row in students])
+
+
+@app.route('/api/students', methods=['POST'])
+def api_add_student():
+    data = request.get_json(silent=True)
+    if not data or not data.get('name') or not data.get('email') or not data.get('course'):
+        return jsonify({"error": "name, email, course are required"}), 400
+
+    db = get_db()
+    db.execute(
+        "INSERT INTO students (name, email, course) VALUES (?, ?, ?)",
+        (data['name'], data['email'], data['course'])
+    )
+    db.commit()
+    db.close()
+    return jsonify({"message": "Student added successfully"}), 201
+
+
+@app.route('/api/students/<int:id>', methods=['PUT'])
+def api_update_student(id):
+    data = request.get_json(silent=True)
+    if not data or not data.get('name') or not data.get('email') or not data.get('course'):
+        return jsonify({"error": "name, email, course are required"}), 400
+
+    db = get_db()
+    existing = db.execute(
+        "SELECT id FROM students WHERE id = ?", (id,)).fetchone()
+    if not existing:
+        db.close()
+        return jsonify({"error": "Student not found"}), 404
+
+    db.execute(
+        "UPDATE students SET name=?, email=?, course=? WHERE id=?",
+        (data['name'], data['email'], data['course'], id)
+    )
+    db.commit()
+    db.close()
+    return jsonify({"message": "Student updated"})
+
+
+@app.route('/api/students/<int:id>', methods=['DELETE'])
+def api_delete_student(id):
+    db = get_db()
+    existing = db.execute(
+        "SELECT id FROM students WHERE id = ?", (id,)).fetchone()
+    if not existing:
+        db.close()
+        return jsonify({"error": "Student not found"}), 404
+
+    db.execute("DELETE FROM students WHERE id=?", (id,))
+    db.commit()
+    db.close()
+    return jsonify({"message": "Student deleted"})
+
+
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)
