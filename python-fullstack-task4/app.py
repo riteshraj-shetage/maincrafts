@@ -1,7 +1,5 @@
 from functools import wraps
-from flask import session, redirect
-
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
