@@ -181,10 +181,8 @@ def edit_student(id):
 
 
 @app.route('/delete/<int:id>')
+@admin_required
 def delete_student(id):
-    if 'user' not in session:
-        return redirect('/login')
-
     db = get_db()
     db.execute("DELETE FROM students WHERE id = ?", (id,))
     db.commit()
