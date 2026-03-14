@@ -15,7 +15,10 @@
         <td>{{ s['course'] }}</td>
         <td>
             <a href="/edit/{{ s['id'] }}">Edit</a>
-            <a href="/delete/{{ s['id'] }}">Delete</a>
+
+            {% if role == 'admin' %}
+              <a href="/admin/delete/{{ s['id'] }}">Delete</a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}
