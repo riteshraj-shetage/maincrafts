@@ -2,9 +2,10 @@ from functools import wraps
 from flask import Flask, render_template, request, redirect, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+import os
 
 app = Flask(__name__)
-app.secret_key = "secure-secret-key"
+app. secret_key = os.environ.get("SECRET_KEY")
 
 
 def get_db():
