@@ -1,0 +1,10 @@
+<h2>Edit Student</h2>
+
+<form method="post">
+  <input name="name" placeholder="Name" value="{{ student['name'] }}" required>
+  <input name="email" placeholder="Email" value="{{ student['email'] }}" required>
+  <input name="course" placeholder="Course" value="{{ student['course'] }}" required>
+  <button type="submit">Update</button>
+</form>
+
+<p><a href="/students">Back to Students</a></p>
